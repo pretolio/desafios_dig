@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "672927467347",
+    "firebase_url": "https://desafiodigistarts.firebaseio.com",
+    "project_id": "desafiodigistarts",
+    "storage_bucket": "desafiodigistarts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672927467347:android:18f220025df00ffec403a6",
+        "android_client_info": {
+          "package_name": "com.jarbis.desafios_dig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672927467347-0nknuo6ic7shotcpm8igfsbmabhjrub5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jarbis.desafios_dig",
+            "certificate_hash": "57b54fe02daf190b8de25d820dca728909ae0d56"
+          }
+        },
+        {
+          "client_id": "672927467347-5agkekqpd20ftl5unsn0lfdivjeig4fl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVEsqEZeE2mjAWpQkUYcTfGV3yLqtQ1no"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672927467347-5agkekqpd20ftl5unsn0lfdivjeig4fl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

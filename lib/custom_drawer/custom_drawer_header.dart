@@ -13,22 +13,39 @@ class CustomDrawerHeader extends StatelessWidget {
           return Column(crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("Loja GM", maxLines: 2, style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),),
-
-              Text("Olá, ${userManage.usuario?.nome ?? ""}",
+              Text("Bem Vindo",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
 
-              GestureDetector(
-                onTap: (){
-                  userManage.load ? userManage.signOut() : Navigator.of(context).pushNamed("/login");
-                },
-                child: Text(userManage.load ? "Sair" : "Entre ou Cadastre-se",
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColorDark,
-                    fontSize: 16, fontWeight: FontWeight.bold),)
-              ),
+              Text("${userManage.usuario?.nome ?? ""}",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+
+              Row(children: [
+                userManage.load ? GestureDetector(
+                    onTap: (){
+                      //Navigator.of(context).pushNamed("/EditarLogin");
+                    },
+                    child: Text("Editar",
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColorDark,
+                          fontSize: 16, fontWeight: FontWeight.bold),)
+                ) : Container(),
+
+                const SizedBox(width: 30,),
+
+                GestureDetector(
+                    onTap: (){
+                      userManage.load ? userManage.signOut() : Navigator.of(context).pushNamed("/login");
+                    },
+                    child: Text(userManage.load ? "Sair" : "Entre ou Cadastre-se",
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColorDark,
+                          fontSize: 16, fontWeight: FontWeight.bold),)
+                ),
+              ],)
           ]);
         })
     );

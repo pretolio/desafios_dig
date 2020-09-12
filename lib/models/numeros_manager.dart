@@ -1,23 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
-import 'numeros.dart';
 
+class NumerosManager extends ChangeNotifier {
+  List<int> listNumeros = [];
 
-class ProdutosManager extends ChangeNotifier {
-  CollectionReference collectionProdutos = FirebaseFirestore.instance.collection('produtos');
-  List<Produtos> produtos;
+  void setNum(String k ){
+    k.replaceAll(" ", "").split(",").map((e) =>
+        listNumeros.add(int.parse(e)) ).toList();
 
-  ProdutosManager(){
-    _loadProdutos();
-  }
-
-  _loadProdutos() async {
-    await collectionProdutos.snapshots().listen( (event) {
-      QuerySnapshot streamProdutos = event;
-      produtos = streamProdutos.docs.map((e) => Produtos.fromDoc(e) ).toList();
-      notifyListeners();
-    }).onError((handleError){
-      print(handleError);
+    Map<String, List<int> > groupedMap = HashMap();
+    listNumeros.forEach((element) {
+      groupedMap..putIfAbsent( element.toString() , () => []).add(element);
     });
+    listNumeros = groupedMap.values.map((list) {
+      return list.reduce((value, entry,) {
+        value = value;
+        return value;
+      });
+    }).toList();
+
+    listNumeros.sort( (a,b) => a.compareTo(b) );
+
+    notifyListeners();
   }
 }

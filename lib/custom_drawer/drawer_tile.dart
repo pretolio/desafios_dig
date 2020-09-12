@@ -12,7 +12,7 @@ class DrawerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int pageAtual = context.watch<PageManager>().page;
-    final Color scafoldcolor = Theme.of(context).scaffoldBackgroundColor;
+    final Color primaryColor = Theme.of(context).primaryColor;
 
 
     return InkWell(
@@ -23,11 +23,11 @@ class DrawerTile extends StatelessWidget {
         child: Row(children: [
           Padding(padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Icon(icon, size: 32,
-              color: pageAtual == page ? scafoldcolor : Colors.grey[600],
+              color: pageAtual == page ? primaryColor : Colors.grey[400],
             ),
           ),
           Text(title, style: TextStyle(fontSize: 16,
-              color: pageAtual == page ? scafoldcolor : Colors.grey[600]),
+              color: pageAtual == page ? primaryColor : Colors.grey[400]),
           )
         ],),
       ),

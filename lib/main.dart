@@ -20,15 +20,15 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           lazy: false,
-          create: (_)=> ProdutosManager(),
+          create: (_)=> NumerosManager(),
         ),
       ],
       child: MaterialApp(
         title: "Store",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: const Color(0xfff5f5f5),
-          scaffoldBackgroundColor: const Color(0xfff7b5c0),
+          scaffoldBackgroundColor: const Color(0xfff5f5f5),
+          primaryColor: Colors.indigo, //Color(0xfff7b5c0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //initialRoute: '/login',

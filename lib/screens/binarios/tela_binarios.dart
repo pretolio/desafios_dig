@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-class TelaProdutos extends StatelessWidget {
+class Binarios extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: CustomDrawer(),
-      appBar: AppBar(title: Text("Produtos"), centerTitle: true,),
-      body: Consumer<ProdutosManager>(
+      appBar: AppBar(title: Text("Binarios"), centerTitle: true,),
+      body: Consumer<NumerosManager>(
           builder: (context, produtosManager, __){
             return GridView.builder(
-                itemCount: produtosManager.produtos.length,
+                itemCount: produtosManager.listNumeros.length,
                 padding: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 10),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -22,25 +22,7 @@ class TelaProdutos extends StatelessWidget {
                   mainAxisSpacing: 5,
                 ),
                 itemBuilder: (context, index){
-                    return Card(
-                      child: Padding(padding: EdgeInsets.all(4),
-                        child: GridTile(
-                          header: Text(produtosManager.produtos[index].nome, textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          footer: Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("A partir de  ", style: TextStyle(color: Colors.grey),),
-                              Text("R\$ 39,90", style: TextStyle(fontSize: 18,
-                                  color: Colors.indigo, fontWeight: FontWeight.bold),),
-                          ]),
-                          child: Padding(padding: EdgeInsets.all(28),
-                              child: Image.network(produtosManager.produtos[index].img.first)
-                          ),
-                        ),
-                      ),
-                    );
+                    return Card();
                 }
             );
           }

@@ -16,20 +16,17 @@ class CustomDrawer extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4),
+                  Colors.indigo[50],
                   Colors.white,
                   Colors.white,
-                  Colors.white,
-                  Theme.of(context).scaffoldBackgroundColor.withOpacity(0.4),
+                  Colors.indigo[100],
                 ])
             ),
           ),
           ListView( children: [
               CustomDrawerHeader(),
-              DrawerTile(icon: Icons.home, title: "Inicio", page: 0,),
-              DrawerTile(icon: Icons.list, title: "Produtos", page: 1,),
-              DrawerTile(icon: Icons.playlist_add_check, title: "Meus Pedidos", page: 2,),
-              DrawerTile(icon: Icons.location_on, title: "Lojas", page: 3,),
+              DrawerTile(icon: Icons.format_list_numbered, title: "Ordenar Numeros", page: 0,),
+              DrawerTile(icon: Icons.developer_board, title: "Binarios", page: 1,),
             ],
           ),
         ]

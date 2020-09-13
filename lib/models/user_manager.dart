@@ -14,10 +14,6 @@ class UserManager extends ChangeNotifier{
   bool _load = false;
   bool get load => _load;
 
-  UserManager(){
-    _loadUser();
-  }
-
   Future<void> signIn({Usuario user, Function onFail, Function onSuccess}) async {
     load = true;
     try {
@@ -26,14 +22,14 @@ class UserManager extends ChangeNotifier{
           password: user.senha
       );
       await _loadUser(usuarioIn: result.user);
-      user.id = result.user.uid;
+      this.usuario.id = result.user.uid;
       userlooad = true;
       onSuccess();
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      debugPrint(e.code);
       onFail(getErrorString(e.code));
     } catch (e) {
-      print(e);
+      debugPrint(e);
       onFail(getErrorString(e.toString()));
     }
 
@@ -49,17 +45,37 @@ class UserManager extends ChangeNotifier{
           password: user.senha
       );
       this.usuario = user;
-      user.id = result.user.uid;
+      this.usuario.id = result.user.uid;
       await user.saveData();
 
       userLogin = result.user;
       userlooad = true;
       onSuccess();
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      debugPrint(e.code);
       onFail(getErrorString(e.code));
     } catch (e) {
-      print(e);
+      debugPrint(e);
+      onFail(getErrorString(e.toString()));
+    }
+    load = false;
+    notifyListeners();
+  }
+
+  Future<void> anonimo({Function onFail, Function onSuccess}) async {
+    load = true;
+    try {
+      UserCredential result = await FirebaseAuth.instance.signInAnonymously();
+      this.usuario = Usuario(nome: "Anonimo", id: result.user.uid);
+
+      userLogin = result.user;
+      userlooad = true;
+      onSuccess();
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.code);
+      onFail(getErrorString(e.code));
+    } catch (e) {
+      debugPrint(e);
       onFail(getErrorString(e.toString()));
     }
     load = false;
@@ -71,7 +87,7 @@ class UserManager extends ChangeNotifier{
     notifyListeners();
   }
 
-  _loadUser({User usuarioIn}) async {
+  Future<void> _loadUser({User usuarioIn}) async {
     if(usuarioIn != null ){
       try{
         userLogin = usuarioIn;
@@ -80,7 +96,7 @@ class UserManager extends ChangeNotifier{
         userlooad = true;
         notifyListeners();
       }catch(e){
-        print("erro 2  ${e}");
+        debugPrint("erro:  ${e}");
       }
     }else{
       await auth.authStateChanges().listen((User user) async {
@@ -92,21 +108,28 @@ class UserManager extends ChangeNotifier{
           notifyListeners();
         }
       }).onError((handleError){
-        print("erro: ${handleError}");
+        debugPrint("erro: ${handleError}");
       });
     }
   }
 
-  signOut() async {
+  Future<void> redefinirsenha({String email, Function onFail, Function onSuccess}) async {
+    try{
+      await auth.sendPasswordResetEmail(email: email);
+      onSuccess();
+    }catch (e){
+      onFail();
+    }
+  }
+
+  Future<void> signOut() async {
     try{
       await auth.signOut();
       usuario = null;
       userlooad = false;
       notifyListeners();
     }catch(e){
-      print(e);
+      debugPrint(e);
     }
   }
-
-
 }

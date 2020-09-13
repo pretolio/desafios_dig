@@ -1,3 +1,4 @@
+import 'package:desafios_dig/models/binarios_manager.dart';
 import 'package:desafios_dig/screens/base/tela_base.dart';
 import 'package:desafios_dig/screens/cadastro/cadastro_login.dart';
 import 'package:desafios_dig/screens/login/login.dart';
@@ -22,6 +23,10 @@ Future<void> main() async {
           lazy: false,
           create: (_)=> NumerosManager(),
         ),
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (_)=> BinariosManager(),
+        ),
       ],
       child: MaterialApp(
         title: "Store",
@@ -31,7 +36,6 @@ Future<void> main() async {
           primaryColor: Colors.indigo, //Color(0xfff7b5c0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        //initialRoute: '/login',
         onGenerateRoute: (settings){
           switch(settings.name){
             case '/login':
@@ -48,12 +52,11 @@ Future<void> main() async {
               );
             default:
               return MaterialPageRoute(
-                  builder: (_) => BaseScreen()
+                  builder: (_) => Login()
               );
           }
         },
       ),
     )
   );
-
 }

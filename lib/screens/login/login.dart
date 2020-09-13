@@ -15,11 +15,11 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color scafoldcolor = Theme.of(context).scaffoldBackgroundColor;
+    final Color primaryColor = Theme.of(context).primaryColor;
 
-    return Scaffold(key: scaffoldKey,
+    return Scaffold(key: scaffoldKey, backgroundColor: primaryColor,
       appBar: AppBar(
-        backgroundColor: scafoldcolor,
+        backgroundColor: primaryColor,
         elevation: 0,
         actions: [
           FlatButton(
@@ -84,7 +84,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16,),
-                    RaisedButton(color: scafoldcolor,
+                    RaisedButton(color: primaryColor,
                         padding: const EdgeInsets.all(5),
                         onPressed: userManager.load ? null : (){
                           if(formkey.currentState.validate()){
@@ -99,7 +99,7 @@ class Login extends StatelessWidget {
                                   );
                                 },
                                 onSuccess: () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil('/base', (Route<dynamic> route) => false);
+                                  Navigator.of(context).pushReplacementNamed('/base');
                                 }
                             );
                           }
@@ -107,7 +107,7 @@ class Login extends StatelessWidget {
                         child: userManager.load ? const CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation(Colors.white)) :
                         const Text("Entrar", style: TextStyle(fontSize: 20, color: Colors.white),),
-                        disabledColor: scafoldcolor.withAlpha(100),
+                        disabledColor: primaryColor.withAlpha(100),
                     )
                   ],
                 );

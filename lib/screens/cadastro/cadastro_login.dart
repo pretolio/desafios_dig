@@ -17,12 +17,12 @@ class CadastroLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color scafoldcolor = Theme.of(context).scaffoldBackgroundColor;
+    final Color primaryColor = Theme.of(context).primaryColor;
 
-    return Scaffold(key: scaffoldKey,
+    return Scaffold(key: scaffoldKey,backgroundColor: primaryColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: scafoldcolor,
+        backgroundColor: primaryColor,
         elevation: 0,
         title: Text("NOVO CADASTRO", style: TextStyle(color: Colors.white),),
         centerTitle: true,
@@ -104,7 +104,7 @@ class CadastroLogin extends StatelessWidget {
                         },
                       ),
                       const SizedBox(height: 20,),
-                      RaisedButton(color: scafoldcolor,
+                      RaisedButton(color: primaryColor,
                         padding: const EdgeInsets.all(5),
                         onPressed: userManager.load ? null : (){
                           if(formkey.currentState.validate()){
@@ -135,7 +135,7 @@ class CadastroLogin extends StatelessWidget {
                         child: userManager.load ? const CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation(Colors.white)) :
                         const Text("Cadastro", style: TextStyle(fontSize: 20, color: Colors.white),),
-                        disabledColor: scafoldcolor.withAlpha(100),
+                        disabledColor: primaryColor.withAlpha(100),
                       )
                     ],
                   );

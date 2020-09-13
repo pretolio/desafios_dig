@@ -10,6 +10,7 @@ class UserManager extends ChangeNotifier{
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   User userLogin;
   Usuario usuario;
+  bool userlooad = false;
   bool _load = false;
   bool get load => _load;
 
@@ -18,7 +19,7 @@ class UserManager extends ChangeNotifier{
   }
 
   Future<void> signIn({Usuario user, Function onFail, Function onSuccess}) async {
-    load = false;
+    load = true;
     try {
       UserCredential result = await auth.signInWithEmailAndPassword(
           email: user.email,
@@ -26,6 +27,7 @@ class UserManager extends ChangeNotifier{
       );
       await _loadUser(usuarioIn: result.user);
       user.id = result.user.uid;
+      userlooad = true;
       onSuccess();
     } on FirebaseAuthException catch (e) {
       print(e.code);
@@ -34,12 +36,13 @@ class UserManager extends ChangeNotifier{
       print(e);
       onFail(getErrorString(e.toString()));
     }
-    load = true;
+
+    load = false;
     notifyListeners();
   }
 
   Future<void> signUp({Usuario user, Function onFail, Function onSuccess}) async {
-    load = false;
+    load = true;
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: user.email,
@@ -50,6 +53,7 @@ class UserManager extends ChangeNotifier{
       await user.saveData();
 
       userLogin = result.user;
+      userlooad = true;
       onSuccess();
     } on FirebaseAuthException catch (e) {
       print(e.code);
@@ -58,7 +62,7 @@ class UserManager extends ChangeNotifier{
       print(e);
       onFail(getErrorString(e.toString()));
     }
-    load = true;
+    load = false;
     notifyListeners();
   }
 
@@ -73,7 +77,7 @@ class UserManager extends ChangeNotifier{
         userLogin = usuarioIn;
         DocumentSnapshot docUser = await users.doc(usuarioIn.uid).get();
         usuario = await Usuario.fromDoc(docUser);
-        load = true;
+        userlooad = true;
         notifyListeners();
       }catch(e){
         print("erro 2  ${e}");
@@ -84,7 +88,7 @@ class UserManager extends ChangeNotifier{
           userLogin = user;
           DocumentSnapshot docUser = await users.doc(user.uid).get();
           usuario = await Usuario.fromDoc(docUser);
-          load = true;
+          userlooad = true;
           notifyListeners();
         }
       }).onError((handleError){
@@ -97,7 +101,7 @@ class UserManager extends ChangeNotifier{
     try{
       await auth.signOut();
       usuario = null;
-      load = false;
+      userlooad = false;
       notifyListeners();
     }catch(e){
       print(e);

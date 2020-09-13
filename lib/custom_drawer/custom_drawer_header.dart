@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 
 class CustomDrawerHeader extends StatelessWidget {
-
+  bool action = false;
   @override
   Widget build(BuildContext context) {
     return DrawerHeader(
@@ -23,29 +23,15 @@ class CustomDrawerHeader extends StatelessWidget {
                 maxLines: 2,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
 
-              Row(children: [
-                userManage.load ? GestureDetector(
-                    onTap: (){
-                      //Navigator.of(context).pushNamed("/EditarLogin");
-                    },
-                    child: Text("Editar",
-                      style: TextStyle(
-                          color: Theme.of(context).primaryColorDark,
-                          fontSize: 16, fontWeight: FontWeight.bold),)
-                ) : Container(),
-
-                const SizedBox(width: 30,),
-
-                GestureDetector(
-                    onTap: (){
-                      userManage.load ? userManage.signOut() : Navigator.of(context).pushNamed("/login");
-                    },
-                    child: Text(userManage.load ? "Sair" : "Entre ou Cadastre-se",
-                      style: TextStyle(
-                          color: Theme.of(context).primaryColorDark,
-                          fontSize: 16, fontWeight: FontWeight.bold),)
-                ),
-              ],)
+              GestureDetector(
+                  onTap: (){
+                    !userManage.userlooad ? Navigator.of(context).pushNamed("/login") : userManage.signOut();
+                  },
+                  child: Text(!userManage.userlooad ?  "Entre ou Cadastre-se" : "Sair",
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColorDark,
+                        fontSize: 16, fontWeight: FontWeight.bold),)
+              ),
           ]);
         })
     );
